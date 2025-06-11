@@ -1,12 +1,15 @@
 const { DataSource } = require("typeorm");
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') }); 
 
-const Task = require("../entities/Task");
-
+const Task = require("../tasks/Task"); 
 const AppDataSource = new DataSource({
-  type: "sqlite",
-  database: "./src/database/todo.sqlite",
-  synchronize: true,
-  entities: [Task],
+    type: "sqlite",
+    database: process.env.DB_NAME, 
+    synchronize: true,
+    entities: [Task],
+    logging: true 
 });
 
-module.exports = { AppDataSource };
+
+module.exports = AppDataSource;
