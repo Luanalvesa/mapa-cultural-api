@@ -1,18 +1,37 @@
-const { DataSource } = require('typeorm');
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
+require('dotenv').config(); 
+const { DataSource } = require("typeorm");
+const { User } = require("../entities/User");
+const { Point } = require("../entities/Point");
+const { Event } = require("../entities/Event");
+const { Route } = require("../entities/Route");
+const { CheckIn } = require("../entities/CheckIn");
+const { Badge } = require("../entities/Badge");
+const { UserBadge } = require("../entities/UserBadge");
 
-const Task = require('../tasks/Task');
-const User = require('../entities/User');
-const Event = require('../entities/Event');
-const EventParticipant = require('../entities/EventParticipant');
 
 const AppDataSource = new DataSource({
-  type: 'sqlite',
-  database: process.env.DB_NAME || './database.sqlite',
-  synchronize: process.env.NODE_ENV === 'development',
-  entities: [Task, User, Event, EventParticipant],
-  logging: process.env.NODE_ENV === 'development'
+    type: "sqlite",
+    database: "./src/database/mapa_cultural.sqlite", 
+    synchronize: true, 
+    entities: [
+        User,
+        Point,
+        Event,
+        Route,
+        CheckIn,
+        Badge,
+        UserBadge,
+      
+    ],
+    logging: true, 
 });
 
-module.exports = AppDataSource;
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!");
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err);
+    });
+
+module.exports = { AppDataSource };
