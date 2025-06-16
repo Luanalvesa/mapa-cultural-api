@@ -16,12 +16,7 @@ const AppDataSource = new DataSource({
     entities: [
         User,
         Point,
-        Event,
-        Route,
-        CheckIn,
-        Badge,
-        UserBadge,
-      
+              
     ],
     logging: true, 
 });
