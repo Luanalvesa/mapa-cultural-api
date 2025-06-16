@@ -1,13 +1,7 @@
-require('dotenv').config(); 
 const { DataSource } = require("typeorm");
 const { User } = require("../entities/User");
-const { Point } = require("../entities/Point");
-const { Event } = require("../entities/Event");
-const { Route } = require("../entities/Route");
-const { CheckIn } = require("../entities/CheckIn");
-const { Badge } = require("../entities/Badge");
-const { UserBadge } = require("../entities/UserBadge");
-
+const { Places } = require("../entities/Places");
+const { Events } = require("../entities/Events");
 
 const AppDataSource = new DataSource({
     type: "sqlite",
@@ -15,18 +9,8 @@ const AppDataSource = new DataSource({
     synchronize: true, 
     entities: [
         User,
-        Point,
-              
+        Places, Events            
     ],
-    logging: true, 
 });
-
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!");
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-    });
 
 module.exports = { AppDataSource };

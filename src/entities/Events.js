@@ -1,25 +1,31 @@
-// src/entities/User.js
 const { EntitySchema } = require("typeorm");
 
-const User = new EntitySchema({
-    name: "User",
-    tableName: "users",
+const Events = new EntitySchema({
+    name: "Events",
+    tableName: "event",
     columns: {
         id: {
-            type: "int",
+            type: "integer",
             primary: true,
             generated: true,
         },
-        userName: {
+        name: {
             type: "varchar",
-            unique: true,
         },
-        email: {
+        description: {
             type: "varchar",
-            unique: true,
         },
-        password: {
+        latitude: {
+            type: "integer",
+        },
+        longitude: {
+            type: "integer",
+        },
+        address: { 
             type: "varchar",
+        },       
+        checkInsCount: {
+            type: "integer",
         },
         createdAt: {
             type: "datetime",
@@ -32,4 +38,4 @@ const User = new EntitySchema({
     },
 });
 
-module.exports = { User };
+module.exports = { Events };
