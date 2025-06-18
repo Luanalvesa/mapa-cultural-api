@@ -17,7 +17,7 @@ module.exports = {
       const encrypted = CryptoJS.SHA256(password).toString();
       const user = await service.create({ name, email, userName, password: encrypted });
 
-      response
+      return response
         .status(201)
         .json({
           id: user.id,
@@ -26,7 +26,7 @@ module.exports = {
           email: user.email
         });
     } catch (error) {
-      response.status(500).json({ error: error.message });
+      return response.status(500).json({ error: error.message });
     }
   },
   login: async (request, response) => {
@@ -41,11 +41,11 @@ module.exports = {
 
       if (user.password !== encrypted) return response.status(400).json({ message: "Password not match" });
 
-      response.json({
+      return response.json({
         user: { id: user.id, name: user.name, email: user.email },
       });
     } catch (error) {
-      response.status(500).json({ error: error.message });
+      return response.status(500).json({ error: error.message });
     }
   },
 };

@@ -1,47 +1,28 @@
-exports.create = (req, res) => {
-    try {
-        
-        const newPlace = req.body; 
+const { AppDataSource } = require("../config/data-source")
+const PlaceService = require("../services/places.service")
 
-        
-        console.log('Novo lugar criado:', newPlace);
+const placesRepo = AppDataSource.getRepository('Places')
+const service = new PlaceService(placesRepo)
 
-        
-        return res.status(201).json({ 
-            message: 'Lugar criado com sucesso!', 
-            place: newPlace 
-        });
+module.exports = {
+    createPlace: async (request, response) => {
+        try {
+            const { userId, name, description, latitude, longitude, address  } = request.body
 
-    } catch (error) {
-        
-        console.error('Erro ao criar lugar:', error);
-        return res.status(500).json({ 
-            message: 'Erro interno do servidor ao criar lugar.', 
-            error: error.message 
-        });
+            const place = await service.create({ createdBy: userId, name, description, longitude, address });
+
+            return response.status(201).json(place)
+        } catch (error) {
+            return response.status(500).json({ error: error.message });
+        }
+    },
+    listPlaces: async (request, response) => {
+        try {
+            const places = await service.list()
+
+            return response.json(places)
+        } catch (error) {
+           return response.status(500).json({ error: error.message });
+        }
     }
-};
-
-
-exports.getAll = (req, res) => {
-   
-    return res.status(200).json({ message: 'Retornando todos os lugares.' });
-};
-
-exports.getById = (req, res) => {
-    
-    const { id } = req.params;
-    return res.status(200).json({ message: `Retornando lugar com ID: ${id}` });
-};
-
-exports.update = (req, res) => {
-    
-    const { id } = req.params;
-    return res.status(200).json({ message: `Atualizando lugar com ID: ${id}` });
-};
-
-exports.delete = (req, res) => {
-    
-    const { id } = req.params;
-    return res.status(200).json({ message: `Deletando lugar com ID: ${id}` });
-};
+}
