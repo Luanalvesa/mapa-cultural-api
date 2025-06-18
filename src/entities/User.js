@@ -10,6 +10,9 @@ const User = new EntitySchema({
             primary: true,
             generated: true,
         },
+        name: {
+            type: 'varchar',
+        },
         userName: {
             type: "varchar",
             unique: true,
