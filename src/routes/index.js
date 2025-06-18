@@ -1,17 +1,23 @@
-const { Router } = require("express");
-const usersControllers = require("../controllers/users.controllers");
+const express = require('express');
+const router = express.Router();
+
+const userController = require('../controllers/users.controllers'); 
 const placeController = require('../controllers/places.controllers'); 
 const eventController = require('../controllers/events.controllers'); 
 
-const routes = Router();
+router.post('/login', userController.login);
+router.post('/register', userController.register);
 
-routes.post("/auth/register", usersControllers.register);
-routes.post("/auth/login", usersControllers.login);
+router.post('/places', placeController.create); 
+router.get('/places', placeController.getAll);   
+router.get('/places/:id', placeController.getById); 
+router.put('/places/:id', placeController.update); 
+router.delete('/places/:id', placeController.delete); 
 
-routes.post('/places', placeController.create); 
-routes.get('/places', placeController.getAll);   
-routes.get('/places/:id', placeController.getById); 
-routes.put('/places/:id', placeController.update); 
-routes.delete('/places/:id', placeController.delete); 
+router.post('/events', eventController.create); 
+router.get('/events', eventController.getAll);   
+router.get('/events/:id', eventController.getById); 
+router.put('/events/:id', eventController.update); 
+router.delete('/events/:id', eventController.delete); 
 
-module.exports = routes;
+module.exports = router;

@@ -1,4 +1,4 @@
-const Event = require('../entities/Event'); 
+const Event = require('../entities/Events'); 
 
 class EventService {
   async createEvent(eventData) {
