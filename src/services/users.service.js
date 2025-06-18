@@ -8,7 +8,11 @@ class UserService {
   }
 
   async findOneByEmail(email) {
-    return await this.repo.find({ where: { users: { email: email } } });
+    return await this.repo.findOne({ where: { users: { email: email } } });
+  }
+
+    async findOneByUserName(userName) {
+    return await this.repo.findOne({ where: { users: { userName: userName } } });
   }
 }
 
