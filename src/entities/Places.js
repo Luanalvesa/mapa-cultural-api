@@ -21,7 +21,7 @@ const Places = new EntitySchema({
         longitude: {
             type: "integer",
         },
-        address: { 
+        address: {
             type: "varchar",
         },
         averageRating: {
@@ -39,6 +39,14 @@ const Places = new EntitySchema({
             updateDate: true,
         },
     },
+    relations: {
+        createdBy: {
+            target: 'User',
+            type: 'many-to-one',
+            joinColumn: true,
+            onDelete: "SET NULL",
+        }
+    }
 });
 
 module.exports = { Places };

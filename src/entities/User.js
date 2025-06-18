@@ -33,6 +33,18 @@ const User = new EntitySchema({
             updateDate: true,
         },
     },
+    relations: {
+        places: {
+            target: 'Places',
+            type: 'one-to-many',
+            inverseSide: "createdBy",
+        },
+        events: {
+            target: 'Events',
+            type: 'one-to-many',
+            inverseSide: "createdBy",
+        }
+    }
 });
 
 module.exports = { User };

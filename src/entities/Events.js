@@ -21,9 +21,9 @@ const Events = new EntitySchema({
         longitude: {
             type: "integer",
         },
-        address: { 
+        address: {
             type: "varchar",
-        },       
+        },
         checkInsCount: {
             type: "integer",
         },
@@ -36,6 +36,14 @@ const Events = new EntitySchema({
             updateDate: true,
         },
     },
+    relations: {
+        createdBy: {
+            target: 'User',
+            type: 'many-to-one',
+            joinColumn: true,
+            onDelete: "SET NULL",
+        }
+    }
 });
 
 module.exports = { Events };
